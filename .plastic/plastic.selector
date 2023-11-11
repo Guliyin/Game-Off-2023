@@ -1,0 +1,4 @@
+repository "Game Off 2023@screamjam2023@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"
