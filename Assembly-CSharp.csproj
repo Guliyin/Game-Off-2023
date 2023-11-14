@@ -56,9 +56,11 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Tutorial_GrapplingGun.cs" />
     <Compile Include="Assets\Script\PlayerGrip.cs" />
     <Compile Include="Assets\Script\UIController.cs" />
+    <Compile Include="Assets\Script\PlayerRecorder.cs" />
+    <Compile Include="Assets\Script\FinishPoint.cs" />
+    <Compile Include="Assets\JsonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
