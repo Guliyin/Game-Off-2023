@@ -3,30 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+[System.Serializable]
+public class JsonList<T>
+{
+    public List<T> list;
+    public JsonList(List<T> list) => this.list = list;
+}
+
 public class PlayerRecorder : MonoBehaviour
 {
     [SerializeField] Transform player;
 
     public List<Vector3> positions = new List<Vector3>();
 
-    public List<string> test = new List<string>();
-
-    public int a = 10;
-
-    void Start()
-    {
-        test.Add("A");
-        test.Add("B");
-        test.Add("C");
-    }
     private void FixedUpdate()
     {
         positions.Add(player.position);
     }
     public void Save()
     {
-        string json = JsonUtility.ToJson(a);
-        File.WriteAllText(Application.dataPath + "test.json", json);
-        print(json);
+        string json = JsonUtility.ToJson(new JsonList<Vector3>(positions), true);
+        File.WriteAllText(Application.dataPath + "/Json/JsonRecord", json);
     }
 }
