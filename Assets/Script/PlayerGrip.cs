@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-    [ExecuteInEditMode]
 public class PlayerGrip : MonoBehaviour
 {
     [SerializeField] SpriteRenderer corssHair;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] Material lineAim;
+    [SerializeField] Material lineGrip;
+    [SerializeField] ParticleSystem partical;
 
 
     [Header("–°«Ú Ù–‘")]
@@ -33,7 +35,8 @@ public class PlayerGrip : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponentInChildren<LineRenderer>();
 
-        rb.mass = mass;
+        //rb.mass = mass;
+        rb.drag = 0.1f * scale;
         transform.localScale = new Vector3(scale, scale, scale);
     }
 
@@ -69,31 +72,30 @@ public class PlayerGrip : MonoBehaviour
         if (hit.transform == null && !isGrippling)
         {
             corssHair.color = Color.grey;
-            corssHair.transform.position = transform.position + (Vector3)dir.normalized * hookLength;
-            return;
+            gripPoint = transform.position + (Vector3)dir.normalized * hookLength;
+            corssHair.transform.position = gripPoint;
         }
         else if (hit.transform != null && !isGrippling)
         {
             corssHair.color = Color.red;
-            corssHair.transform.position = hitPoint;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
             gripPoint = hitPoint;
-            isGrippling = true;
-            lineRenderer.enabled = true;
             corssHair.transform.position = gripPoint;
         }
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButtonDown(0) && hit.transform != null)
         {
-            DrawLine();
+            gripPoint = hitPoint;
+            ShotGripple(gripPoint);
+            isGrippling = true;
+            lineRenderer.material = lineGrip;
+            corssHair.transform.position = gripPoint;
         }
         if (Input.GetMouseButtonUp(0))
         {
-            lineRenderer.enabled = false;
+            lineRenderer.material = lineAim;
             isGrippling = false;
         }
+        DrawLine();
     }
     private void FixedUpdate()
     {
@@ -104,15 +106,17 @@ public class PlayerGrip : MonoBehaviour
         }
     }
 
+    void ShotGripple(Vector3 position)
+    {
+        rb.AddForce((position - transform.position).normalized * -(lineForce / 16), ForceMode2D.Impulse);
+
+        partical.transform.position = position;
+        partical.Play();
+    }
+
     void DrawLine()
     {
         lineRenderer.SetPosition(0,transform.position);
         lineRenderer.SetPosition(1,gripPoint);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        Gizmos.DrawRay(transform.position, dir.normalized * hookLength);
     }
 }

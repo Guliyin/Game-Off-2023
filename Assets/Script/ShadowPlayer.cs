@@ -6,20 +6,23 @@ using UnityEngine;
 public class ShadowPlayer : MonoBehaviour
 {
     List<Vector3> pos;
+    Rigidbody2D rb;
     int fixedFrameCount;
     void Start()
     {
-        string path = Application.dataPath + "/Json/JsonRecord";
-        string sr = File.ReadAllText(path);
-        JsonList<Vector3> jsonList = JsonUtility.FromJson<JsonList<Vector3>>(sr);
-        pos = jsonList.list;
-    }
+        rb = GetComponent<Rigidbody2D>();
 
+        string path = Application.dataPath + "/Json/JsonRecord.json";
+        string sr = File.ReadAllText(path);
+        SaveFile jsonList = JsonUtility.FromJson<SaveFile>(sr);
+        pos = jsonList.posList;
+        
+    }
     private void FixedUpdate()
     {
         if (fixedFrameCount >= pos.Count) return;
 
-        transform.position = pos[fixedFrameCount];
+        rb.position = pos[fixedFrameCount];
         fixedFrameCount++;
     }
 }
