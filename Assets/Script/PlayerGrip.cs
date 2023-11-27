@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerGrip : MonoBehaviour
 {
@@ -10,58 +11,69 @@ public class PlayerGrip : MonoBehaviour
     [SerializeField] Material lineAim;
     [SerializeField] Material lineGrip;
     [SerializeField] ParticleSystem partical;
-
+    [SerializeField] Object o;
 
     [Header("–°«Ú Ù–‘")]
-    [Range(5, 20)]
-    [SerializeField] float hookLength = 5;
-    [Range(10,200)]
-    [SerializeField] float lineForce = 20;
     [Range(0.5f, 2)]
-    [SerializeField] float mass = 1;
-    [Range(0.5f,2)]
     [SerializeField] float scale = 1;
+
 
     Camera cam;
     Rigidbody2D rb;
     LineRenderer lineRenderer;
+    TrailRenderer trailRenderer;
+    PlayerInput input;
 
     Vector3 hitPoint;
     Vector3 gripPoint;
     bool isGrippling;
+
+    [SerializeField] float hookLength = 15;
+    float lineForce;
+    float springDistance = 1;
+
+    [HideInInspector] public bool isBulletTime;
+
     private void Start()
     {
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
+        input = GetComponent<PlayerInput>();
+        trailRenderer = GetComponent<TrailRenderer>();
         lineRenderer = GetComponentInChildren<LineRenderer>();
 
-        //rb.mass = mass;
-        rb.drag = 0.1f * scale;
+        input.EnableGameplayInputs();
+
+        rb.drag = 0.15f * scale;
+        lineForce = Mathf.Pow(scale, 1.90f) * 40;
+        lineRenderer.startWidth = scale * 0.1f;
+        trailRenderer.startWidth = scale;
+        trailRenderer.endWidth = scale * 0.5f;
+
         transform.localScale = new Vector3(scale, scale, scale);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (input.restart)
         {
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.5f, 0.2f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (input.bulletTime)
         {
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.2f);
+            StartBulletTime();
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
+        if (input.stopBulletTime)
         {
-            DOTween.To(() => rb.gravityScale, x => rb.gravityScale = x, 0, 0.2f);
+            EndBuuletTime();
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (input.gravityUp)
         {
-            DOTween.To(() => rb.gravityScale, x => rb.gravityScale = x, 2, 0.2f);
+            ChangeGravity(-1);
         }
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        if (input.gravityDown)
         {
-            DOTween.To(() => rb.gravityScale, x => rb.gravityScale = x, 1, 0.2f);
+            ChangeGravity(1);
         }
 
         Vector2 dir = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -82,15 +94,12 @@ public class PlayerGrip : MonoBehaviour
             corssHair.transform.position = gripPoint;
         }
 
-        if (Input.GetMouseButtonDown(0) && hit.transform != null)
+        if (input.fire && hit.transform != null)
         {
-            gripPoint = hitPoint;
-            ShotGripple(gripPoint);
-            isGrippling = true;
-            lineRenderer.material = lineGrip;
-            corssHair.transform.position = gripPoint;
+            ShotGripple();
+
         }
-        if (Input.GetMouseButtonUp(0))
+        if (input.release)
         {
             lineRenderer.material = lineAim;
             isGrippling = false;
@@ -102,21 +111,44 @@ public class PlayerGrip : MonoBehaviour
         if (isGrippling)
         {
             Vector2 dirLine = gripPoint - transform.position;
-            rb.AddForce(dirLine.normalized * lineForce, ForceMode2D.Force);
+            rb.AddForce(dirLine.normalized * lineForce * (Mathf.Min(springDistance, dirLine.magnitude) / springDistance), ForceMode2D.Force);
         }
     }
-
-    void ShotGripple(Vector3 position)
+    private void ChangeGravity(int n)
     {
-        rb.AddForce((position - transform.position).normalized * -(lineForce / 16), ForceMode2D.Impulse);
+        rb.gravityScale += n;
+        rb.gravityScale = Mathf.Clamp(rb.gravityScale, -2, 2);
 
-        partical.transform.position = position;
+        EventCenter.Broadcast(FunctionType.UpdateGravityBG, rb.gravityScale);
+    }
+    void StartBulletTime()
+    {
+        isBulletTime = true;
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.4f, 0.2f);
+        EventCenter.Broadcast(FunctionType.StartBulletTime);
+    }
+    public void EndBuuletTime()
+    {
+        if (!isBulletTime) return;
+        isBulletTime = false;
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.2f);
+        EventCenter.Broadcast(FunctionType.EndBulletTime);
+    }
+
+    void ShotGripple()
+    {
+        isGrippling = true;
+        gripPoint = hitPoint;
+        lineRenderer.material = lineGrip;
+        corssHair.transform.position = gripPoint;
+
+        partical.transform.position = gripPoint;
         partical.Play();
     }
 
     void DrawLine()
     {
-        lineRenderer.SetPosition(0,transform.position);
-        lineRenderer.SetPosition(1,gripPoint);
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, gripPoint);
     }
 }

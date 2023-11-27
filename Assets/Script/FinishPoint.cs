@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class FinishPoint : MonoBehaviour
 {
-    [SerializeField] PlayerRecorder recorder;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player")) recorder.Save();
+        if (collision.CompareTag("Player")) PlayerRecorder.Instance.Save();
     }
 }
