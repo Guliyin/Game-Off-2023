@@ -2,5 +2,7 @@ public enum FunctionType
 {
     StartBulletTime,
     EndBulletTime,
-    UpdateGravityBG
+    UpdateGravityBG,
+    StartPlaying,
+    EndPlaying,
 }

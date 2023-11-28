@@ -828,6 +828,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="PlayFabEditorExtensions.csproj">
+      <Project>{617FA031-8964-FB22-1463-62A8EAA9CB24}</Project>
+      <Name>PlayFabEditorExtensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

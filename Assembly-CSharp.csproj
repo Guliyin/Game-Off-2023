@@ -61,13 +61,14 @@
     <Compile Include="Assets\Script\UIController.cs" />
     <Compile Include="Assets\Settings\PlayerInputActions.cs" />
     <Compile Include="Assets\Script\PlayerCamera.cs" />
-    <Compile Include="Assets\Settings\PlayerInput.cs" />
+    <Compile Include="Assets\Settings\CustomPlayerInput.cs" />
     <Compile Include="Assets\Script\FinishPoint.cs" />
     <Compile Include="Assets\Script\GravityBG.cs" />
     <Compile Include="Assets\Script\EventSystem\FunctionType.cs" />
     <Compile Include="Assets\Script\EventSystem\EventCenter.cs" />
     <Compile Include="Assets\Script\RedArea.cs" />
     <Compile Include="Assets\Script\PlayerInfo.cs" />
+    <Compile Include="Assets\Script\BallBase.cs" />
     <Compile Include="Assets\Script\ShadowPlayer.cs" />
     <Compile Include="Assets\Script\PlayerRecorder.cs" />
     <Compile Include="Assets\Script\StartPoint.cs" />

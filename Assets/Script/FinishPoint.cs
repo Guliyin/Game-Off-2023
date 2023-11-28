@@ -6,6 +6,9 @@ public class FinishPoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) PlayerRecorder.Instance.Save();
+        if (collision.CompareTag("Player"))
+        {
+            EventCenter.Broadcast(FunctionType.EndPlaying);
+        }
     }
 }

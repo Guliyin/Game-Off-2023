@@ -11,7 +11,6 @@ public class PlayerGrip : MonoBehaviour
     [SerializeField] Material lineAim;
     [SerializeField] Material lineGrip;
     [SerializeField] ParticleSystem partical;
-    [SerializeField] Object o;
 
     [Header("–°«Ú Ù–‘")]
     [Range(0.5f, 2)]
@@ -22,7 +21,7 @@ public class PlayerGrip : MonoBehaviour
     Rigidbody2D rb;
     LineRenderer lineRenderer;
     TrailRenderer trailRenderer;
-    PlayerInput input;
+    CustomPlayerInput input;
 
     Vector3 hitPoint;
     Vector3 gripPoint;
@@ -38,7 +37,7 @@ public class PlayerGrip : MonoBehaviour
     {
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
-        input = GetComponent<PlayerInput>();
+        input = GetComponent<CustomPlayerInput>();
         trailRenderer = GetComponent<TrailRenderer>();
         lineRenderer = GetComponentInChildren<LineRenderer>();
 
@@ -76,7 +75,16 @@ public class PlayerGrip : MonoBehaviour
             ChangeGravity(1);
         }
 
-        Vector2 dir = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector2 dir;
+        if (CustomPlayerInput.CURRENT_CONTROL_SCHEME == CustomPlayerInput.MNK_CONTROL_SCHEME)
+        {
+            dir = cam.ScreenToWorldPoint(input.aim) - transform.position;
+        }
+        else
+        {
+            dir = input.aimPad;
+            print(input.aimPad);
+        }
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position, dir, hookLength, layerMask);
         hitPoint = hit.point;

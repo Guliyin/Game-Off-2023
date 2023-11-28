@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 8724664968561710001}
   - component: {fileID: 1304573996595356921}
   - component: {fileID: 5981666791855637037}
-  - component: {fileID: 5004101738801843924}
   - component: {fileID: 4056038561077976548}
   - component: {fileID: 1220280734364970507}
-  m_Layer: 0
+  - component: {fileID: 4956305550246664142}
+  - component: {fileID: 8477639214234009237}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -37,7 +38,7 @@ Transform:
   - {fileID: 6465310221811778645}
   - {fileID: 1874981314105377887}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8724664968561710001
 SpriteRenderer:
@@ -106,14 +107,14 @@ Rigidbody2D:
   m_Mass: 0.7853982
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: cab7736097b30ca4aa28b3444bbf5531, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -133,7 +134,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -153,18 +154,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5004101738801843924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586230728281252566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80df3e9aa5e6ce643a759824c99b41be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4056038561077976548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +173,7 @@ MonoBehaviour:
   lineAim: {fileID: 2100000, guid: b7898c4d9c49829419a050b7bdd5efee, type: 2}
   lineGrip: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   partical: {fileID: 0}
+  o: {fileID: 0}
   scale: 1
   hookLength: 13
   isBulletTime: 0
@@ -300,6 +290,88 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 0
+--- !u!114 &4956305550246664142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586230728281252566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80df3e9aa5e6ce643a759824c99b41be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8477639214234009237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586230728281252566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: adbf39fbb9ddd59419023683db5c69c9, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4956305550246664142}
+        m_TargetAssemblyTypeName: CustomPlayerInput, Assembly-CSharp
+        m_MethodName: SwitchInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 33ab3bee-65c6-4ffe-b28c-fd0ad62aaa83
+    m_ActionName: InGame/BulletTime[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1017dab9-8345-440f-b5ee-b51d820ab912
+    m_ActionName: InGame/Gravity Up[/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c681496c-0f3e-4e74-934f-7abbf62ec0d9
+    m_ActionName: InGame/Gravity Down[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d29c8ac-80f3-497f-be5e-8bcd67aabda7
+    m_ActionName: InGame/Gripple[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 61ead307-51b3-4578-9963-a9d2a12f3acd
+    m_ActionName: InGame/Restart[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1833de60-1fe4-4676-8d6e-47ceafa1ee6c
+    m_ActionName: InGame/Aim[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 25862d1e-0c99-438e-9775-a829c99959bb
+    m_ActionName: Menu/New action
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: InGame
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &2488734788412411379
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6465310221811778645}
   - component: {fileID: 7762810940766105821}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LineRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +519,7 @@ GameObject:
   - component: {fileID: 1874981314105377887}
   - component: {fileID: 8950276390964628451}
   - component: {fileID: 1669235207620757881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CameraFollowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -64,18 +64,36 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dir"",
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""61ead307-51b3-4578-9963-a9d2a12f3acd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AimMouse"",
                     ""type"": ""Value"",
-                    ""id"": ""bc944be1-942e-48b1-9fff-424f702723a1"",
+                    ""id"": ""1833de60-1fe4-4676-8d6e-47ceafa1ee6c"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Restart"",
+                    ""name"": ""AimPad"",
+                    ""type"": ""Value"",
+                    ""id"": ""fcaee09b-998b-4ca5-b171-0cef04c197ec"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
-                    ""id"": ""61ead307-51b3-4578-9963-a9d2a12f3acd"",
+                    ""id"": ""c1dbcfa0-2df7-4683-ba0e-3564bd46053e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -89,7 +107,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MNK"",
                     ""action"": ""BulletTime"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -100,7 +118,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""BulletTime"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -111,7 +129,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MNK"",
                     ""action"": ""Gravity Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -122,7 +140,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Gravity Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -133,7 +151,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MNK"",
                     ""action"": ""Gripple"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -144,7 +162,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Gripple"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -155,7 +173,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MNK"",
                     ""action"": ""Gravity Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -166,65 +184,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Gravity Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""5b434899-cbce-46fe-8b6e-d52bcf126d8c"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dir"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""07629036-1dd4-4721-a0a7-53b9d978ea30"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dir"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""f9ebdee3-54e4-4656-9d3c-e024dd3f738a"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dir"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""a180c900-ec5e-4730-93e9-7ac8587518cc"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dir"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""44197403-fe1a-4ef1-8e45-e37644b18995"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dir"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -232,15 +195,104 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""MNK"",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79fb430e-0951-4fa2-aa4f-15b98fdef0cb"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MNK"",
+                    ""action"": ""AimMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b1de2cc-73ba-4ba8-a5df-7c3bdc08f050"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AimPad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c649c4b6-5aab-4a0b-983f-2a6d5d751a9a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""MNK"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""d09b4619-66c3-4c79-a890-254380ae7b02"",
+            ""actions"": [
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""25862d1e-0c99-438e-9775-a829c99959bb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c04dfd9a-91ab-48cf-97a2-b9260dbd57fb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""MNK"",
+            ""bindingGroup"": ""MNK"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // InGame
         m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
@@ -248,8 +300,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_InGame_GravityUp = m_InGame.FindAction("Gravity Up", throwIfNotFound: true);
         m_InGame_GravityDown = m_InGame.FindAction("Gravity Down", throwIfNotFound: true);
         m_InGame_Gripple = m_InGame.FindAction("Gripple", throwIfNotFound: true);
-        m_InGame_Dir = m_InGame.FindAction("Dir", throwIfNotFound: true);
         m_InGame_Restart = m_InGame.FindAction("Restart", throwIfNotFound: true);
+        m_InGame_AimMouse = m_InGame.FindAction("AimMouse", throwIfNotFound: true);
+        m_InGame_AimPad = m_InGame.FindAction("AimPad", throwIfNotFound: true);
+        m_InGame_Pause = m_InGame.FindAction("Pause", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Continue = m_Menu.FindAction("Continue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,8 +372,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_GravityUp;
     private readonly InputAction m_InGame_GravityDown;
     private readonly InputAction m_InGame_Gripple;
-    private readonly InputAction m_InGame_Dir;
     private readonly InputAction m_InGame_Restart;
+    private readonly InputAction m_InGame_AimMouse;
+    private readonly InputAction m_InGame_AimPad;
+    private readonly InputAction m_InGame_Pause;
     public struct InGameActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -325,8 +384,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @GravityUp => m_Wrapper.m_InGame_GravityUp;
         public InputAction @GravityDown => m_Wrapper.m_InGame_GravityDown;
         public InputAction @Gripple => m_Wrapper.m_InGame_Gripple;
-        public InputAction @Dir => m_Wrapper.m_InGame_Dir;
         public InputAction @Restart => m_Wrapper.m_InGame_Restart;
+        public InputAction @AimMouse => m_Wrapper.m_InGame_AimMouse;
+        public InputAction @AimPad => m_Wrapper.m_InGame_AimPad;
+        public InputAction @Pause => m_Wrapper.m_InGame_Pause;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -348,12 +409,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Gripple.started += instance.OnGripple;
             @Gripple.performed += instance.OnGripple;
             @Gripple.canceled += instance.OnGripple;
-            @Dir.started += instance.OnDir;
-            @Dir.performed += instance.OnDir;
-            @Dir.canceled += instance.OnDir;
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @AimMouse.started += instance.OnAimMouse;
+            @AimMouse.performed += instance.OnAimMouse;
+            @AimMouse.canceled += instance.OnAimMouse;
+            @AimPad.started += instance.OnAimPad;
+            @AimPad.performed += instance.OnAimPad;
+            @AimPad.canceled += instance.OnAimPad;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -370,12 +437,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Gripple.started -= instance.OnGripple;
             @Gripple.performed -= instance.OnGripple;
             @Gripple.canceled -= instance.OnGripple;
-            @Dir.started -= instance.OnDir;
-            @Dir.performed -= instance.OnDir;
-            @Dir.canceled -= instance.OnDir;
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @AimMouse.started -= instance.OnAimMouse;
+            @AimMouse.performed -= instance.OnAimMouse;
+            @AimMouse.canceled -= instance.OnAimMouse;
+            @AimPad.started -= instance.OnAimPad;
+            @AimPad.performed -= instance.OnAimPad;
+            @AimPad.canceled -= instance.OnAimPad;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -393,13 +466,83 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public InGameActions @InGame => new InGameActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_Continue;
+    public struct MenuActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public MenuActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Continue => m_Wrapper.m_Menu_Continue;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @Continue.started += instance.OnContinue;
+            @Continue.performed += instance.OnContinue;
+            @Continue.canceled += instance.OnContinue;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @Continue.started -= instance.OnContinue;
+            @Continue.performed -= instance.OnContinue;
+            @Continue.canceled -= instance.OnContinue;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
+    private int m_MNKSchemeIndex = -1;
+    public InputControlScheme MNKScheme
+    {
+        get
+        {
+            if (m_MNKSchemeIndex == -1) m_MNKSchemeIndex = asset.FindControlSchemeIndex("MNK");
+            return asset.controlSchemes[m_MNKSchemeIndex];
+        }
+    }
     public interface IInGameActions
     {
         void OnBulletTime(InputAction.CallbackContext context);
         void OnGravityUp(InputAction.CallbackContext context);
         void OnGravityDown(InputAction.CallbackContext context);
         void OnGripple(InputAction.CallbackContext context);
-        void OnDir(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
+        void OnAimMouse(InputAction.CallbackContext context);
+        void OnAimPad(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnContinue(InputAction.CallbackContext context);
     }
 }

@@ -22,15 +22,6 @@ public class SaveFile
 
 public class PlayerRecorder : MonoBehaviour
 {
-    private static PlayerRecorder instance;
-    public static PlayerRecorder Instance
-    {
-        get
-        {
-            if (instance == null) instance = (PlayerRecorder)FindObjectOfType(typeof(PlayerRecorder));
-            return instance;
-        }
-    }
 
     [SerializeField] bool isRecording;
     [SerializeField] TMP_Text timer;
@@ -39,8 +30,14 @@ public class PlayerRecorder : MonoBehaviour
 
     List<Vector3> positions = new List<Vector3>();
     float time;
-
     bool recording;
+
+    private void OnEnable()
+    {
+        EventCenter.AddListener(FunctionType.StartPlaying, StartRecord);
+        EventCenter.AddListener(FunctionType.EndPlaying, Save);
+    }
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -58,11 +55,11 @@ public class PlayerRecorder : MonoBehaviour
             positions.Add(player.position);
         }
     }
-    public void StartRecord()
+    void StartRecord()
     {
         recording = true;
     }
-    public void Save()
+    void Save()
     {
         recording = false;
         positions.Add(player.position);
@@ -70,27 +67,33 @@ public class PlayerRecorder : MonoBehaviour
         if (isRecording)
         {
             string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
-            File.WriteAllText(Application.dataPath + "/Json/" + SceneManager.GetActiveScene().name + "_" + time.ToString("0.000") + "_" + System.DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".json", json);
+            File.WriteAllText(Application.persistentDataPath + "/Json/" + SceneManager.GetActiveScene().name + "_" + time.ToString("0.000") + "_" + System.DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".json", json);
         }
         else
         {
-            try
+            string directory = Application.persistentDataPath + "/Json/";
+            string path = directory + SceneManager.GetActiveScene().name + "_Record.json";
+            if (File.Exists(path))
             {
-                string path = Application.dataPath + "/Json/JsonRecord.json";
                 string sr = File.ReadAllText(path);
                 SaveFile saveFile = JsonUtility.FromJson<SaveFile>(sr);
                 if (saveFile.time > time)
                 {
                     string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
-                    File.WriteAllText(Application.dataPath + "/Json/JsonRecord.json", json);
+                    File.WriteAllText(path, json);
                 }
             }
-            catch
+            else
             {
+                Directory.CreateDirectory(directory);
                 string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
-                File.WriteAllText(Application.dataPath + "/Json/JsonRecord.json", json);
+                File.WriteAllText(path, json);
             }
-
         }
+    }
+    private void OnDisable()
+    {
+        EventCenter.RemoveListener(FunctionType.StartPlaying, StartRecord);
+        EventCenter.RemoveListener(FunctionType.EndPlaying, Save);
     }
 }

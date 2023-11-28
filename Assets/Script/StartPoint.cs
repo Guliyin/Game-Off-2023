@@ -8,7 +8,7 @@ public class StartPoint : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            PlayerRecorder.Instance.StartRecord();
+            EventCenter.Broadcast(FunctionType.StartPlaying);
         }
     }
 }
