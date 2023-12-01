@@ -6,18 +6,18 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 [System.Serializable]
-struct SceneInfo
+public struct SceneInfo
 {
     public int num;
     public string name;
-    public Image image;
+    public Sprite image;
 }
 
 public class MainMenu : MonoBehaviour
 {
     RectTransform rectTransform;
-    [SerializeField] SceneInfo[] sceneInfo;
-    int curScene = 1;
+    public SceneInfo[] sceneInfo;
+    public int curScene = 1;
 
     private void OnEnable()
     {

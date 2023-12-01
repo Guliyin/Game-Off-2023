@@ -37,8 +37,7 @@ public class PlayerRecorder : MonoBehaviour
     {
         EventCenter.AddListener(FunctionType.StartPlaying, StartRecord);
         EventCenter.AddListener(FunctionType.EndPlaying, Save);
-        EventCenter.AddListener<string>(FunctionType.UpdateRivalRecord, UpdateRivalRecord);
-        EventCenter.AddListener<OnlinePlayerInfo>(FunctionType.UpdateRivalInfo, UpdateRivalInfo);
+        EventCenter.AddListener(FunctionType.LeaderboardSentSuccessful, LeaderboardSentCallBack);
     }
 
     private void Start()
@@ -62,23 +61,16 @@ public class PlayerRecorder : MonoBehaviour
     {
         recording = true;
     }
-    void UpdateRivalRecord(string s)
-    {
-        print(s);
-    }
-    void UpdateRivalInfo(OnlinePlayerInfo info)
-    {
-        print(info.Name);
-    }
     void Save()
     {
         recording = false;
         timer.text = "TIME: " + time.ToString("0.000");
         positions.Add(player.position);
 
+        string json;
         if (isRecording)
         {
-            string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
+            json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
             File.WriteAllText(Application.persistentDataPath + "/Json/" + SceneManager.GetActiveScene().name + "_" + time.ToString("0.000") + "_" + System.DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".json", json);
         }
         string directory = Application.persistentDataPath + "/Json/";
@@ -87,34 +79,30 @@ public class PlayerRecorder : MonoBehaviour
         {
             string sr = File.ReadAllText(path);
             SaveFile saveFile = JsonUtility.FromJson<SaveFile>(sr);
+            json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
             if (saveFile.time > time)
             {
-                PlayfabManager.Instance.SendLeaderboard((int)(time * 1000), SceneManager.GetActiveScene().name);
-
-                string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
                 File.WriteAllText(path, json);
-
                 PlayfabManager.Instance.SendRecord(SceneManager.GetActiveScene().name, json);
             }
         }
         else
         {
-
-            PlayfabManager.Instance.SendLeaderboard((int)(time * 1000), SceneManager.GetActiveScene().name);
-
             Directory.CreateDirectory(directory);
-            string json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
+            json = JsonUtility.ToJson(new SaveFile(positions, time, player.transform.localScale.x), true);
             File.WriteAllText(path, json);
-
             PlayfabManager.Instance.SendRecord(SceneManager.GetActiveScene().name, json);
         }
+        PlayfabManager.Instance.SendLeaderboard((int)(time * 1000), SceneManager.GetActiveScene().name);
+    }
+    void LeaderboardSentCallBack()
+    {
         PlayfabManager.Instance.GetLeaderBoardPlayerPos(SceneManager.GetActiveScene().name);
     }
     private void OnDisable()
     {
         EventCenter.RemoveListener(FunctionType.StartPlaying, StartRecord);
         EventCenter.RemoveListener(FunctionType.EndPlaying, Save);
-        EventCenter.RemoveListener<string>(FunctionType.UpdateRivalRecord, UpdateRivalRecord);
-        EventCenter.RemoveListener<OnlinePlayerInfo>(FunctionType.UpdateRivalInfo, UpdateRivalInfo);
+        EventCenter.AddListener(FunctionType.LeaderboardSentSuccessful, LeaderboardSentCallBack);
     }
 }

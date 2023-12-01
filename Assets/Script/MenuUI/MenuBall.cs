@@ -1,6 +1,20 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+
+[System.Serializable]
+public class PlayerInfo
+{
+    public string Name;
+    public float Scale;
+
+    public PlayerInfo(string name, float scale)
+    {
+        Name = name;
+        Scale = scale;
+    }
+}
 
 public class MenuBall : MonoBehaviour
 {
@@ -14,11 +28,25 @@ public class MenuBall : MonoBehaviour
     [SerializeField] Button btn;
 
     float scale;
-    string name;
+    string displayName;
     private void Start()
     {
         slider.onValueChanged.AddListener(SliderValueChange);
         inputField.onValueChanged.AddListener(NameInput);
+
+        string path = Application.persistentDataPath + "/Json/PlayerInfo.json";
+        if (File.Exists(path))
+        {
+            string sr = File.ReadAllText(path);
+            PlayerInfo info = JsonUtility.FromJson<PlayerInfo>(sr);
+
+            slider.value = info.Scale;
+            inputField.text = info.Name;
+        }
+        else
+        {
+            SliderValueChange(1);
+        }
     }
     void SliderValueChange(float f)
     {
@@ -32,8 +60,14 @@ public class MenuBall : MonoBehaviour
     }
     void NameInput(string s)
     {
-        name = s;
-        btn.interactable = s != "";
+        displayName = s;
+        btn.interactable = s.Length >= 3;
     }
-
+    public void SavePlayrProfile()
+    {
+        PlayerInfo info = new PlayerInfo(displayName, scale);
+        string path = Application.persistentDataPath + "/Json/PlayerInfo.json";
+        string s = JsonUtility.ToJson(info, true);
+        File.WriteAllText(path, s);
+    }
 }

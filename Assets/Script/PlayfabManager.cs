@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.SceneManagement;
 public class OnlinePlayerInfo
 {
     public string PlayfabId;
@@ -34,38 +35,58 @@ public class PlayfabManager : MonoBehaviour
             return instance;
         }
     }
+    static string VIRTUAL_PLAYER_ID = "F012981423890333";
 
     string loggedInPlayfabId;
+    public bool virtualPlayer;
 
     void Start()
     {
-        //Login("aaa");
+        if (SceneManager.GetActiveScene().name != "0_Menu") return;
+        //if (virtualPlayer)
+        //{
+        //    LoginVirtualPlayer();
+        //}
+        //else
+        //{
+            Login();
+        //}
     }
-    public void Login(TMP_InputField input)
+    public void Login()
     {
-        string displayName = input.text;
         var request = new LoginWithCustomIDRequest
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true
         };
-        PlayFabClientAPI.LoginWithCustomID(request, result => { OnSuccess(result, displayName); }, OnError);
+        PlayFabClientAPI.LoginWithCustomID(request, OnSuccess, OnError);
     }
-    void OnSuccess(LoginResult result, string displayName)
+    //public void LoginVirtualPlayer()
+    //{
+    //    var request = new LoginWithCustomIDRequest
+    //    {
+    //        CustomId = "E9353D84DFB9260A",
+    //        CreateAccount = true
+    //    };
+    //    PlayFabClientAPI.LoginWithCustomID(request, result => { print("Virtual Login Success!"); }, OnError);
+    //}
+    void OnSuccess(LoginResult result)
     {
-        loggedInPlayfabId = result.PlayFabId;
-        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
-        {
-            DisplayName = displayName
-        }, result =>
-        {
-            print("Successful log in with name: " + displayName);
-        }, OnError);
-        EventCenter.Broadcast(FunctionType.LoginSuccessful);
+        print("Login successful");
+        FindObjectOfType<MenuLevel>().LoginSuccessful();
     }
     void OnError(PlayFabError result)
     {
         throw new UnityException(result.ErrorMessage);
+    }
+    public void UpdateDisplayName(TMP_InputField input)
+    {
+        string displayName = input.text;
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
+        {
+            DisplayName = displayName
+        }, result => { print("Update display name successful: " + displayName); }, OnError);
+        EventCenter.Broadcast(FunctionType.LoginSuccessful);
     }
     public void SendLeaderboard(int time, string leaderboardName)
     {
@@ -76,7 +97,7 @@ public class PlayfabManager : MonoBehaviour
                 new StatisticUpdate
                 {
                     StatisticName = leaderboardName,
-                    Value = time
+                    Value = -time
                 }
             }
         };
@@ -84,16 +105,19 @@ public class PlayfabManager : MonoBehaviour
     }
     void OnLeaderboardUpdate(UpdatePlayerStatisticsResult result)
     {
+        EventCenter.Broadcast(FunctionType.LeaderboardSentSuccessful);
         print("Successfull leaderboard sent!");
     }
     public void SendRecord(string key, string sr)
     {
+        print("Sending record");
         var request = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
             {
-                {key, sr}
-            }
+                { key, sr }
+            },
+            Permission = UserDataPermission.Public
         };
         PlayFabClientAPI.UpdateUserData(request, OnDataSend, OnError);
     }
@@ -123,12 +147,13 @@ public class PlayfabManager : MonoBehaviour
         OnlinePlayerInfo info = new OnlinePlayerInfo(result.Leaderboard[pos].PlayFabId, result.Leaderboard[pos].DisplayName, result.Leaderboard[pos].Position + 1, result.Leaderboard[pos].StatValue);
         EventCenter.Broadcast(FunctionType.UpdatePlayerInfo, info);
     }
-    public void GetLeaderboardAround(string key)
+    public void GetLeaderboardAround(string key, bool isPlayer)
     {
         var request = new GetLeaderboardAroundPlayerRequest
         {
             StatisticName = key,
-            MaxResultsCount = 2
+            MaxResultsCount = 2,
+            PlayFabId = isPlayer ? loggedInPlayfabId : VIRTUAL_PLAYER_ID,
         };
         PlayFabClientAPI.GetLeaderboardAroundPlayer(request, OnLeaderboardAroundPlayerGet, OnError);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.IO;
 
 public class ShadowRival : MonoBehaviour
 {
@@ -23,15 +24,30 @@ public class ShadowRival : MonoBehaviour
         EventCenter.AddListener<OnlinePlayerInfo>(FunctionType.UpdateRivalInfo, GetRivalInfoRecall);
         EventCenter.AddListener<string>(FunctionType.UpdateRivalRecord, GetRivalRecordRecall);
         EventCenter.AddListener(FunctionType.StartPlaying, StartPlaying);
+        EventCenter.AddListener(FunctionType.EndPlaying, EndPlaying);
     }
     void Start()
     {
-        PlayfabManager.Instance.GetLeaderboardAround(SceneManager.GetActiveScene().name);
+        /////////////
+
+        bool isPlayer;
+        string path = Application.persistentDataPath + "/Json/" + SceneManager.GetActiveScene().name + "_Record.json";
+        if (File.Exists(path))
+        {
+            isPlayer = true;
+        }
+        else
+        {
+            isPlayer = false;
+        }
+
+        PlayfabManager.Instance.GetLeaderboardAround(SceneManager.GetActiveScene().name, isPlayer);
     }
     void GetRivalInfoRecall(OnlinePlayerInfo info)
     {
         id = info.PlayfabId;
         displayName = info.Name;
+        print(displayName);
         PlayfabManager.Instance.GetUserData(SceneManager.GetActiveScene().name, id);
     }
     void GetRivalRecordRecall(string s)
@@ -61,6 +77,10 @@ public class ShadowRival : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<TrailRenderer>().enabled = true;
         GetComponentInChildren<MeshRenderer>().enabled = true;
+    }
+    void EndPlaying()
+    {
+        playing = false;
     }
     private void Update()
     {

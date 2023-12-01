@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class PlayerGrip : MonoBehaviour
 {
@@ -48,6 +49,19 @@ public class PlayerGrip : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         input.EnableGameplayInputs();
+
+        string path = Application.persistentDataPath + "/Json/PlayerInfo.json";
+        if (File.Exists(path))
+        {
+            string sr = File.ReadAllText(path);
+            PlayerInfo info = JsonUtility.FromJson<PlayerInfo>(sr);
+
+            scale = info.Scale;
+        }
+        else
+        {
+            scale = 1;
+        }
 
         rb.drag = 0.15f * scale;
         lineForce = Mathf.Pow(scale, 1.90f) * 40;

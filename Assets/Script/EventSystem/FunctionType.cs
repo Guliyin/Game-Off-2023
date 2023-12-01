@@ -10,5 +10,6 @@ public enum FunctionType
     UpdateRivalInfo,
     UpdatePlayerInfo,
     UpdateRivalRecord,
-    LoginSuccessful
+    LoginSuccessful,
+    LeaderboardSentSuccessful
 }
