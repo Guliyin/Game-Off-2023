@@ -5,4 +5,10 @@ public enum FunctionType
     UpdateGravityBG,
     StartPlaying,
     EndPlaying,
+    PauseGame,
+    ContinueGame,
+    UpdateRivalInfo,
+    UpdatePlayerInfo,
+    UpdateRivalRecord,
+    LoginSuccessful
 }

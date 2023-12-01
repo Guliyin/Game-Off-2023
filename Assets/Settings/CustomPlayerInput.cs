@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,15 +22,11 @@ public class CustomPlayerInput : MonoBehaviour
     public bool gravityUp => playerInputActions.InGame.GravityUp.WasPressedThisFrame();
     public bool gravityDown => playerInputActions.InGame.GravityDown.WasPressedThisFrame();
     public bool restart => playerInputActions.InGame.Restart.WasPressedThisFrame();
+    public bool gamePause => playerInputActions.InGame.Pause.WasPressedThisFrame();
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
-        //playerInput = GetComponent<PlayerInput>();
-    }
-    private void Start()
-    {
-        
     }
     public void SwitchInput(PlayerInput input)
     {
@@ -37,7 +35,14 @@ public class CustomPlayerInput : MonoBehaviour
     }
     public void EnableGameplayInputs()
     {
+        playerInputActions.Disable();
         playerInputActions.InGame.Enable();
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+    public void DisableGameplayInputs()
+    {
+        playerInputActions.Disable();
+        playerInputActions.InGame.Disable();
         Cursor.lockState = CursorLockMode.None;
     }
 }

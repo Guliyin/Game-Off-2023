@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8457929185340943822}
   - component: {fileID: 7481983546371277219}
   - component: {fileID: 9133393540288153551}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GreyArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

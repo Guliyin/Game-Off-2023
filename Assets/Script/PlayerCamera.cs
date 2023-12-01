@@ -26,12 +26,14 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         float speed = Mathf.Clamp(rb.velocity.magnitude, 0, 40);
-        Vector2 followPos = player.transform.position + (Vector3)rb.velocity.normalized * speed * (maxDistance / 40);
+        Vector2 velocityPos = player.transform.position + (Vector3)rb.velocity.normalized * speed * (maxDistance / 40);
+        Vector2 mousePos = player.gripPoint;
+        Vector2 followPos = Vector2.Lerp(mousePos, velocityPos, 0.5f);
         transform.position = Vector2.MoveTowards(transform.position, followPos, Time.deltaTime * 10);
 
         if (!player.isBulletTime)
         {
-            float size = 10 + (speed * 0.1f);
+            float size = 11 + (speed * 0.1f);
             virtualCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(virtualCamera.m_Lens.OrthographicSize, size, Time.deltaTime * 5);
         }
     }

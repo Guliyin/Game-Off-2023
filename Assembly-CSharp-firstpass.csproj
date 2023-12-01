@@ -828,9 +828,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PlayFabEditorExtensions.csproj">
-      <Project>{617FA031-8964-FB22-1463-62A8EAA9CB24}</Project>
-      <Name>PlayFabEditorExtensions</Name>
+    <ProjectReference Include="PlayFab.csproj">
+      <Project>{18F8EC0A-CD99-02E8-36AA-377EF137A758}</Project>
+      <Name>PlayFab</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFabSDKEditor.csproj">
+      <Project>{4A98A66B-5044-6A8A-5C3A-2314369A5D58}</Project>
+      <Name>PlayFabSDKEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

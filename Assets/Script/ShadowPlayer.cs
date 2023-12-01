@@ -11,8 +11,8 @@ public class ShadowPlayer : MonoBehaviour
 
     List<Vector3> pos;
     int fixedFrameCount;
-    bool active;
     bool playing;
+    string sr = "";
 
     private void OnEnable()
     {
@@ -20,7 +20,6 @@ public class ShadowPlayer : MonoBehaviour
     }
     private void Start()
     {
-        string sr = "";
         if (isRecord)
         {
             string directory = Application.persistentDataPath + "/Json/";
@@ -36,7 +35,6 @@ public class ShadowPlayer : MonoBehaviour
         }
         if (sr != "")
         {
-            active = true;
             SaveFile jsonList = JsonUtility.FromJson<SaveFile>(sr);
             pos = jsonList.posList;
             float scale = jsonList.scale;
@@ -52,14 +50,16 @@ public class ShadowPlayer : MonoBehaviour
 
     void StartPlaying()
     {
-        playing = true;
-
-        GetComponent<SpriteRenderer>().enabled = true;
-        GetComponent<TrailRenderer>().enabled = true;
+        if (sr != "")
+        {
+            playing = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+            GetComponent<TrailRenderer>().enabled = true;
+            GetComponentInChildren<MeshRenderer>().enabled = true;
+        }
     }
     private void Update()
     {
-        if (!active) return;
         if (!playing) return;
 
         if (fixedFrameCount+1 < pos.Count)
@@ -74,7 +74,6 @@ public class ShadowPlayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!active) return;
         if (!playing || fixedFrameCount >= pos.Count) return;
 
         fixedFrameCount++;

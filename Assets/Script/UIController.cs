@@ -7,11 +7,16 @@ using DG.Tweening;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text scaleText;
+    [SerializeField] TMP_Text rivalTimeText;
     [SerializeField] Image bulletTime;
     [SerializeField] Slider slider;
+    [SerializeField] RectTransform pauseUI;
+    [SerializeField] RectTransform finishUI;
+    [SerializeField] RectTransform blackCover;
     RectTransform sliderRectTransform;
     CanvasGroup sliderCanvasGroup;
+    AudioSource audioSource;
 
     PlayerGrip player;
     Rigidbody2D rb;
@@ -25,6 +30,9 @@ public class UIController : MonoBehaviour
     {
         EventCenter.AddListener(FunctionType.StartBulletTime, StartBulletTime);
         EventCenter.AddListener(FunctionType.EndBulletTime, EndBulletTime);
+        EventCenter.AddListener(FunctionType.PauseGame, ShowPause);
+        EventCenter.AddListener(FunctionType.ContinueGame,HidePause);
+        EventCenter.AddListener(FunctionType.EndPlaying, ShowEnd);
     }
     private void Start()
     {
@@ -32,12 +40,15 @@ public class UIController : MonoBehaviour
 
         sliderCanvasGroup = slider.GetComponent<CanvasGroup>();
         sliderRectTransform = slider.GetComponent<RectTransform>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGrip>();
         rb = player.GetComponent<Rigidbody2D>();
+
+        blackCover.DOAnchorPosX(-1920, 0.35f);
     }
     void Update()
     {
-        text.text = "TimeScale:" + Time.timeScale.ToString("0.0") + "\n\nGravityScale:" + rb.gravityScale.ToString("0.0");
+        scaleText.text = "TimeScale:" + Time.timeScale.ToString("0.0") + "\n\nGravityScale:" + rb.gravityScale.ToString("0.0");
 
         if (player.isBulletTime)
         {
@@ -53,6 +64,10 @@ public class UIController : MonoBehaviour
             btCoolDown = Mathf.Clamp(btCoolDown, 0, MaxBTCoolDown);
         }
         slider.value = btCoolDown / MaxBTCoolDown;
+    }
+    public void InitRivalTime(float time)
+    {
+        rivalTimeText.text = "Rival's time: " + time.ToString("0.000");
     }
     void StartBulletTime()
     {
@@ -74,9 +89,29 @@ public class UIController : MonoBehaviour
         sliderCanvasGroup.DOFade(1f, 0.2f);
         bulletTime.DOFade(0, 0.2f);
     }
+    void ShowPause()
+    {
+        pauseUI.gameObject.SetActive(true);
+    }
+    void HidePause()
+    {
+        pauseUI.gameObject.SetActive(false);
+    }
+    void ShowEnd()
+    {
+        audioSource.Play();
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(finishUI.DOAnchorPosX(-100, 0.2f));
+        sequence.Append(finishUI.DOAnchorPosX(0, 0.1f));
+        sequence.Play();
+    }
     private void OnDisable()
     {
         EventCenter.RemoveListener(FunctionType.StartBulletTime, StartBulletTime);
         EventCenter.RemoveListener(FunctionType.EndBulletTime, EndBulletTime);
+        EventCenter.RemoveListener(FunctionType.PauseGame, ShowPause);
+        EventCenter.RemoveListener(FunctionType.ContinueGame, HidePause);
+        EventCenter.RemoveListener(FunctionType.EndPlaying, ShowEnd);
     }
 }

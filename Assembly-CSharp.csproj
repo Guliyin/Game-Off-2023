@@ -62,17 +62,23 @@
     <Compile Include="Assets\Settings\PlayerInputActions.cs" />
     <Compile Include="Assets\Script\PlayerCamera.cs" />
     <Compile Include="Assets\Settings\CustomPlayerInput.cs" />
+    <Compile Include="Assets\Script\MenuUI\MenuBall.cs" />
     <Compile Include="Assets\Script\FinishPoint.cs" />
     <Compile Include="Assets\Script\GravityBG.cs" />
+    <Compile Include="Assets\Script\MenuUI\MainMenu.cs" />
     <Compile Include="Assets\Script\EventSystem\FunctionType.cs" />
+    <Compile Include="Assets\Script\GameMgr.cs" />
+    <Compile Include="Assets\Script\FinishUI.cs" />
     <Compile Include="Assets\Script\EventSystem\EventCenter.cs" />
     <Compile Include="Assets\Script\RedArea.cs" />
     <Compile Include="Assets\Script\PlayerInfo.cs" />
-    <Compile Include="Assets\Script\BallBase.cs" />
     <Compile Include="Assets\Script\ShadowPlayer.cs" />
     <Compile Include="Assets\Script\PlayerRecorder.cs" />
+    <Compile Include="Assets\Script\PlayfabManager.cs" />
+    <Compile Include="Assets\Script\ShadowRival.cs" />
     <Compile Include="Assets\Script\StartPoint.cs" />
     <Compile Include="Assets\Script\PlayerGrip.cs" />
+    <Compile Include="Assets\Script\MenuUI\OpenScreenBall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -856,6 +862,14 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{C8C8A53A-2B9B-D7BB-20F3-ED387628A256}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFab.csproj">
+      <Project>{18F8EC0A-CD99-02E8-36AA-377EF137A758}</Project>
+      <Name>PlayFab</Name>
+    </ProjectReference>
+    <ProjectReference Include="PlayFabSDKEditor.csproj">
+      <Project>{4A98A66B-5044-6A8A-5C3A-2314369A5D58}</Project>
+      <Name>PlayFabSDKEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -60,7 +60,7 @@ Material:
     - _Alpha: 0.05
     - _Dir: 1
     - _EnableExternalAlpha: 0
-    - _Speed: -1
+    - _Speed: 1
     m_Colors:
     - _Color: {r: 1, g: 0.6117647, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

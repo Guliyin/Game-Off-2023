@@ -6,7 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/3_TutorialThree.unity
+    path: Assets/Scenes/0_Menu.unity
+    guid: ee59e6685b5b83c40bb0a47054597d59
+  - enabled: 1
+    path: Assets/Scenes/1_Drag Race.unity
+    guid: 884cefc63d7e5b94193bfe4ee1790b8a
+  - enabled: 1
+    path: Assets/Scenes/2_Theory of Relativity.unity
+    guid: 8cdab853393f7594fb2d5fe3ee568ca3
+  - enabled: 1
+    path: Assets/Scenes/3_Steeplechase.unity
+    guid: 76e4cf4173c0c4b43964dcdd46a8b6e0
+  - enabled: 1
+    path: Assets/Scenes/4_Speed Bump.unity
     guid: 94ba8b3bb931771468cad196c94534e4
+  - enabled: 1
+    path: Assets/Scenes/5_Beginners' Championship.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/6_Italian Grand Prix.unity
+    guid: 390641b4a65d4ed4e9b74a2bdce2bace
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 97c9ccd3782fec94f8ab07f8c2696e4b, type: 2}

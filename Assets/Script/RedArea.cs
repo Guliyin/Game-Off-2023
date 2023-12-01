@@ -8,7 +8,7 @@ public class RedArea : MonoBehaviour
     [SerializeField] float decelerate;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.GetComponent<Rigidbody2D>() != null)
         {
             collision.GetComponent<Rigidbody2D>().velocity *= decelerate;
         }

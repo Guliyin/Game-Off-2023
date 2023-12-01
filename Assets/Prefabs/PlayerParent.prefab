@@ -32,7 +32,7 @@ Transform:
   - {fileID: 1643920586273727588}
   - {fileID: 945464799287487520}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &432897090408150339
 PrefabInstance:
@@ -194,6 +194,10 @@ PrefabInstance:
       objectReference: {fileID: 4438349154770841617}
     - target: {fileID: 4056038561077976548, guid: dbf372f90b9e5f34dba9f34118a4b3eb, type: 3}
       propertyPath: corssHair
+      value: 
+      objectReference: {fileID: 6345855701503248913}
+    - target: {fileID: 4056038561077976548, guid: dbf372f90b9e5f34dba9f34118a4b3eb, type: 3}
+      propertyPath: crossHair
       value: 
       objectReference: {fileID: 6345855701503248913}
     - target: {fileID: 5281339604822428585, guid: dbf372f90b9e5f34dba9f34118a4b3eb, type: 3}

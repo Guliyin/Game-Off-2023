@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerGrip : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer corssHair;
+    [SerializeField] SpriteRenderer crossHair;
     [SerializeField] LayerMask layerMask;
     [SerializeField] Material lineAim;
     [SerializeField] Material lineGrip;
@@ -21,17 +21,22 @@ public class PlayerGrip : MonoBehaviour
     Rigidbody2D rb;
     LineRenderer lineRenderer;
     TrailRenderer trailRenderer;
+    AudioSource audioSource;
     CustomPlayerInput input;
 
     Vector3 hitPoint;
-    Vector3 gripPoint;
+    public Vector3 gripPoint;
     bool isGrippling;
 
     [SerializeField] float hookLength = 15;
     float lineForce;
-    float springDistance = 1;
+    float springDistance = 3;
 
     [HideInInspector] public bool isBulletTime;
+    private void OnEnable()
+    {
+        EventCenter.AddListener(FunctionType.EndPlaying, DisableInputs);
+    }
 
     private void Start()
     {
@@ -40,6 +45,7 @@ public class PlayerGrip : MonoBehaviour
         input = GetComponent<CustomPlayerInput>();
         trailRenderer = GetComponent<TrailRenderer>();
         lineRenderer = GetComponentInChildren<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         input.EnableGameplayInputs();
 
@@ -74,6 +80,12 @@ public class PlayerGrip : MonoBehaviour
         {
             ChangeGravity(1);
         }
+        if (input.gamePause)
+        {
+            EventCenter.Broadcast(FunctionType.PauseGame);
+            DisableInputs();
+            Time.timeScale = 0;
+        }
 
         Vector2 dir;
         if (CustomPlayerInput.CURRENT_CONTROL_SCHEME == CustomPlayerInput.MNK_CONTROL_SCHEME)
@@ -83,7 +95,6 @@ public class PlayerGrip : MonoBehaviour
         else
         {
             dir = input.aimPad;
-            print(input.aimPad);
         }
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position, dir, hookLength, layerMask);
@@ -91,21 +102,27 @@ public class PlayerGrip : MonoBehaviour
 
         if (hit.transform == null && !isGrippling)
         {
-            corssHair.color = Color.grey;
+            crossHair.color = Color.grey;
             gripPoint = transform.position + (Vector3)dir.normalized * hookLength;
-            corssHair.transform.position = gripPoint;
+            crossHair.transform.position = gripPoint;
         }
         else if (hit.transform != null && !isGrippling)
         {
-            corssHair.color = Color.red;
+            if (1 << hit.transform.gameObject.layer == LayerMask.GetMask("GreyWall"))
+            {
+                crossHair.color = Color.grey;
+            }
+            else
+            {
+                crossHair.color = Color.red;
+            }
             gripPoint = hitPoint;
-            corssHair.transform.position = gripPoint;
+            crossHair.transform.position = gripPoint;
         }
 
-        if (input.fire && hit.transform != null)
+        if (input.fire && hit.transform != null && 1 << hit.transform.gameObject.layer == LayerMask.GetMask("Wall"))
         {
             ShotGripple();
-
         }
         if (input.release)
         {
@@ -148,15 +165,40 @@ public class PlayerGrip : MonoBehaviour
         isGrippling = true;
         gripPoint = hitPoint;
         lineRenderer.material = lineGrip;
-        corssHair.transform.position = gripPoint;
+        crossHair.transform.position = gripPoint;
 
         partical.transform.position = gripPoint;
         partical.Play();
+
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
     void DrawLine()
     {
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, gripPoint);
+    }
+    void DisableInputs()
+    {
+        isGrippling = false;
+        input.DisableGameplayInputs();
+        crossHair.gameObject.SetActive(false);
+        lineRenderer.enabled = false;
+    }
+    void EnableInputs()
+    {
+        input.EnableGameplayInputs();
+        crossHair.gameObject.SetActive(true);
+        lineRenderer.enabled = true;
+    }
+    public void GameContinue()
+    {
+        EventCenter.Broadcast(FunctionType.ContinueGame);
+        EnableInputs();
+        Time.timeScale = 1f;
+    }
+    private void OnDisable()
+    {
+        EventCenter.RemoveListener(FunctionType.EndPlaying, DisableInputs);
     }
 }
