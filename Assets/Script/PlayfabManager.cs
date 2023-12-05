@@ -43,14 +43,14 @@ public class PlayfabManager : MonoBehaviour
     void Start()
     {
         if (SceneManager.GetActiveScene().name != "0_Menu") return;
-        //if (virtualPlayer)
-        //{
-        //    LoginVirtualPlayer();
-        //}
-        //else
-        //{
+        if (virtualPlayer)
+        {
+            LoginVirtualPlayer();
+        }
+        else
+        {
             Login();
-        //}
+        }
     }
     public void Login()
     {
@@ -61,15 +61,15 @@ public class PlayfabManager : MonoBehaviour
         };
         PlayFabClientAPI.LoginWithCustomID(request, OnSuccess, OnError);
     }
-    //public void LoginVirtualPlayer()
-    //{
-    //    var request = new LoginWithCustomIDRequest
-    //    {
-    //        CustomId = "E9353D84DFB9260A",
-    //        CreateAccount = true
-    //    };
-    //    PlayFabClientAPI.LoginWithCustomID(request, result => { print("Virtual Login Success!"); }, OnError);
-    //}
+    public void LoginVirtualPlayer()
+    {
+        var request = new LoginWithCustomIDRequest
+        {
+            CustomId = "E9353D84DFB9260A",
+            CreateAccount = true
+        };
+        PlayFabClientAPI.LoginWithCustomID(request, result => { print("Virtual Login Success!"); }, OnError);
+    }
     void OnSuccess(LoginResult result)
     {
         print("Login successful");

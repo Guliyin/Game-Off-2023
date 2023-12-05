@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/6_Italian Grand Prix.unity
     guid: 390641b4a65d4ed4e9b74a2bdce2bace
+  - enabled: 1
+    path: Assets/Scenes/7_Final Race.unity
+    guid: e56eae117b4acce44bcf521089ae5504
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 97c9ccd3782fec94f8ab07f8c2696e4b, type: 2}

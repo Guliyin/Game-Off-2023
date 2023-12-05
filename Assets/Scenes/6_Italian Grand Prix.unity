@@ -7062,7 +7062,7 @@ PrefabInstance:
       objectReference: {fileID: 523406348}
     - target: {fileID: 1999481378189652952, guid: b62c630036c26a54cb38340112cce726, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 11
+      value: 11.34328
       objectReference: {fileID: 0}
     - target: {fileID: 2374475601867584680, guid: b62c630036c26a54cb38340112cce726, type: 3}
       propertyPath: m_RootOrder
@@ -7118,7 +7118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7424384944964486631, guid: b62c630036c26a54cb38340112cce726, type: 3}
       propertyPath: orthographic size
-      value: 11
+      value: 11.34328
       objectReference: {fileID: 0}
     - target: {fileID: 8594728189834448554, guid: b62c630036c26a54cb38340112cce726, type: 3}
       propertyPath: m_Name

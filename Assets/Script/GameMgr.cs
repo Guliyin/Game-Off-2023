@@ -60,7 +60,7 @@ public class GameMgr : MonoBehaviour
     }
     public void NextLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 6)
+        if (SceneManager.GetActiveScene().buildIndex == 7)
         {
             SceneManager.LoadScene(0);
         }
