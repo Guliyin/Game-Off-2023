@@ -147,6 +147,17 @@
                 },
                 {
                     "name": "",
+                    "id": "025d1481-34b5-4617-bf5b-dc3c1eb8a4df",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gripple",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "94020575-b5e0-4a59-bd92-d91b4c9ed4e8",
                     "path": "<Keyboard>/s",
                     "interactions": "",
